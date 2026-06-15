@@ -77,6 +77,16 @@ app.get("/api/health", (req, res) => {
 });
 
 app.all(["/api/diagnostico", "/api/diagnostico/"], (req, res, next) => {
+  // Configuración de CORS para asegurar peticiones seguras e integraciones bajo subdominios personalizados
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With");
+
+  // Responder de inmediato a la petición preflight OPTIONS de CORS
+  if (req.method === "OPTIONS") {
+    return res.sendStatus(204);
+  }
+
   if (req.method !== "POST") {
     console.warn(`[WARNING] Non-POST request to /api/diagnostico: ${req.method} ${req.url}`);
     return res.status(405).json({ error: `Method ${req.method} Not Allowed on /api/diagnostico. Se requiere un método POST.` });
