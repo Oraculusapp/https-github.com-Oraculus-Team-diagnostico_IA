@@ -1,0 +1,8 @@
+{
+  "name": "Diagnóstico IA Actual Internet",
+  "description": "SaaS MVP for AI maturity diagnostic. Features a 37-question survey, AI-powered results analysis with Gemini 1.5 Flash, and a lead capture system.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

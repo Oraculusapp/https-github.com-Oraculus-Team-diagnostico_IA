@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&display=swap');
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Plus Jakarta Sans", sans-serif;
+  
+  --color-primary: #38bdf8; /* Sky 400 */
+  --color-secondary: #818cf8; /* Indigo 400 */
+  --color-background: #020617; /* Deep Navy */
+}
+
+@layer base {
+  :root {
+    --background: #020617;
+    --foreground: #ffffff;
+    --card: #0f172a;
+    --card-foreground: #ffffff;
+    --popover: #020617;
+    --popover-foreground: #ffffff;
+    --primary: #38bdf8;
+    --primary-foreground: #020617;
+    --secondary: #1e293b;
+    --secondary-foreground: #ffffff;
+    --muted: #1e293b;
+    --muted-foreground: #94a3b8;
+    --accent: #334155;
+    --accent-foreground: #ffffff;
+    --destructive: #ef4444;
+    --destructive-foreground: #ffffff;
+    --border: rgba(255, 255, 255, 0.1);
+    --input: rgba(255, 255, 255, 0.05);
+    --ring: #38bdf8;
+    --radius: 1rem;
+  }
+
+  body {
+    @apply bg-[--background] text-[--foreground] font-sans antialiased selection:bg-sky-500/30;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply tracking-tighter text-white font-black;
+  }
+}
+
+.glow-button {
+  @apply relative overflow-hidden transition-all duration-300;
+}
+
+.glow-button::after {
+  content: '';
+  @apply absolute -inset-[100%] opacity-0 transition-opacity duration-500 pointer-events-none;
+  background: radial-gradient(circle, rgba(56, 189, 248, 0.2) 0%, transparent 70%);
+}
+
+.glow-button:hover::after {
+  @apply opacity-100;
+}
+
+.sleek-card {
+  @apply bg-white/[0.03] border border-white/10 rounded-2xl backdrop-blur-md transition-all duration-300;
+}
+
+.sleek-card:hover {
+  @apply border-white/20 bg-white/[0.06] shadow-2xl;
+}
+
+.label-caps {
+  @apply text-[11px] font-black uppercase tracking-[0.3em] text-slate-500 leading-none;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* Styling for AI HTML Report in dark and light modes */
+.ai-html-report {
+  --tw-prose-body: #cbd5e1;
+  --tw-prose-headings: #ffffff;
+  --tw-prose-lead: #94a3b8;
+  line-height: 1.625;
+}
+
+.ai-html-report h1 {
+  font-size: 1.875rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 0.5rem;
+}
+
+.ai-html-report h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #38bdf8;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.ai-html-report h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.ai-html-report p {
+  color: #cbd5e1;
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+}
+
+.ai-html-report ul {
+  list-style-type: disc;
+  padding-left: 1.5rem;
+  margin-bottom: 1.25rem;
+  color: #cbd5e1;
+}
+
+.ai-html-report li {
+  margin-bottom: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.ai-html-report table {
+  width: 100% !important;
+  border-collapse: collapse !important;
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  background-color: #0f172a !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0.75rem !important;
+  overflow: hidden !important;
+}
+
+.ai-html-report tr {
+  background-color: transparent !important;
+}
+
+.ai-html-report tr:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+}
+
+.ai-html-report th {
+  background-color: #1e293b !important;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.15) !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 11px !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  color: #38bdf8 !important;
+  text-align: left !important;
+}
+
+.ai-html-report td {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  padding: 0.75rem 1rem !important;
+  font-size: 0.875rem !important;
+  color: #f1f5f9 !important;
+}
+
+.ai-html-report tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Force high-fidelity color rendering for printing and html2canvas PDF generation */
+#printable-report-area, .ai-html-report, .ai-html-report table, .ai-html-report tr, .ai-html-report td, .ai-html-report th {
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}

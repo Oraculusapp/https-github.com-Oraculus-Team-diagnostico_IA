@@ -1,0 +1,52 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Auth helpers
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email.lower() == 'oscar@actualinternet.com'
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    // Validation for Lead
+    function isValidLead(data) {
+      return data.keys().hasAll(['nombre', 'empresa', 'email', 'telefono', 'respuestas', 'scores', 'ahorro', 'tipo_lead', 'createdAt', 'status']) &&
+             data.nombre is string && data.nombre.size() <= 200 &&
+             data.empresa is string && data.empresa.size() <= 200 &&
+             data.email is string && data.email.size() <= 200 &&
+             data.telefono is string && data.telefono.size() <= 60 &&
+             data.respuestas is map &&
+             data.scores is map &&
+             data.ahorro is map &&
+             data.tipo_lead in ['frio', 'tibio', 'caliente'] &&
+             data.status in ['nuevo', 'pending', 'procesado', 'archivado'] &&
+             data.createdAt == request.time;
+    }
+
+    match /leads/{leadId} {
+      // Anyone can create a lead
+      allow create: if isValidLead(request.resource.data);
+      
+      // Only admin can read/list/delete/update
+      allow read, list, delete, update: if isAdmin();
+    }
+
+    match /config/{configId} {
+      // Only admin can manage config
+      allow read, write: if isAdmin();
+    }
+  }
+}

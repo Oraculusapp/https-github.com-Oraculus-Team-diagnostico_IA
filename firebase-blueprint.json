@@ -1,0 +1,46 @@
+{
+  "entities": {
+    "Lead": {
+      "title": "Lead",
+      "description": "In información de diagnóstico de IA de una empresa",
+      "type": "object",
+      "properties": {
+        "nombre": { "type": "string", "description": "Nombre del contacto" },
+        "empresa": { "type": "string", "description": "Nombre de la empresa" },
+        "email": { "type": "string", "format": "email", "description": "Email de contacto" },
+        "telefono": { "type": "string", "description": "Teléfono de contacto" },
+        "respuestas": { "type": "object", "description": "Respuestas a las 37 preguntas" },
+        "scores": { 
+          "type": "object", 
+          "properties": {
+            "global": { "type": "number" },
+            "porBloque": { "type": "object" }
+          }
+        },
+        "ahorro": {
+          "type": "object",
+          "properties": {
+            "semanal": { "type": "number" },
+            "anual": { "type": "number" },
+            "euros_anual": { "type": "number" },
+            "equivalente_staff": { "type": "number" }
+          }
+        },
+        "analisis_ia": { "type": "string", "description": "Análisis generado por Gemini" },
+        "tipo_lead": { "type": "string", "enum": ["frio", "tibio", "caliente"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["nombre", "empresa", "email", "telefono", "respuestas", "scores", "ahorro", "tipo_lead", "createdAt"]
+    }
+  },
+  "firestore": {
+    "leads/{leadId}": {
+      "schema": "Lead",
+      "description": "Colección de leads capturados"
+    },
+    "config/{configId}": {
+      "schema": "object",
+      "description": "Configuraciones globales de la app"
+    }
+  }
+}
